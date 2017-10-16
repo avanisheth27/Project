@@ -63,7 +63,8 @@ $form .= '</form>';
  $this->html .= htmlTags::headingOne('Upload Form');
 $this->html .= $form;
 }
-public function post() {                         
+public function post()
+ {                         
 $target_dir = "uploads/";
 $target_file = $target_dir . $_FILES["fileToUpload"]["name"];
 $filename = $_FILES["fileToUpload"]["name"];
