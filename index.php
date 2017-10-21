@@ -1,49 +1,143 @@
 
 <?php
-class homepage extends page {
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+echo "<h1><b><center >  Project-1 </h1 ></b></center>  ";
+class assignment
+{
+public static function autoload($class)
+{
+include $class . '.php';
+}
+}
+spl_autoload_register(array('assignment', 'autoload'));
+$object = new main();
+class main
+{
+public function __construct()
+{
+$pageRequest = 'uploadForm';
+if(isset($_REQUEST['page']))
+{
+$pageRequest = $_REQUEST['page'];
+}
+$page = new $pageRequest;
+if($_SERVER['REQUEST_METHOD'] == 'GET')
+{
+$page->get();
+} else
+{
+$page->post();
+}
+}
+}
+abstract class page
+{
+protected $html;
+public function __construct()
+{
+$this->html .= '<html>';
+$this->html .= '<link rel="stylesheet" href="styles.css">';
+$this->html .= '<body>';
+$this->html .= '<center> ';
+}
+public function __destruct()
+{
+$this->html .= '</body></html></center > ';
+strings::printThis($this->html);
+}
+public function get()
+{
+echo 'default get message';
+}
+public function post()
+{
+print_r($_POST);
+}
+}
+class tags
+{
+static public function headingOne($text)
+{
+return '<h1>' . $text . '</h1>';
+}
+static public function Format()
+{
+echo "<table cellpadding='8px' border='2px' style='border-collapse:collapse'>";
+}
+static public function Row()
+{
+echo '</tr>';
+}
+static public function top($text)
+{
+echo '<th style="font-size: small">'.$text.'</th>';
+}
+static public function content($text)
+{
+echo '<td>'.$text.'</td>';
+}
+}
 
-    public function get() {
+class strings
+{
+static public function printThis($input)
+{
+return print($input);
+}
+}
 
-        $form = '<form action="index.php" method="post">';
-        
-        $form .= '<input type="file"  name="fileToUpload" id="fileToUpload">';
-        
-        $form .= '<input type="submit" value="Upload " name="submit">';
-       
-        $form .= '</form> ';
-        $this->html .= 'homepage';
-        $this->html .= $form;
-    }
-
-    public function post()
-    {
-        $target_file="upload/".basename($_FILES["fileToUpload"]["name"]);
-        
-                                   // Checking if the file doesnt already exist, and that it is of the correct file format
-                           if (!$this->isFileAlreadyExisting($target_file) && $this->isCorrectFileFormat($fileType)
-                       ) {
- 
-                                         // this command uploads the file to the directory specified, and returns true if successful
-                               if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
-                               {
-                                   echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-                               }
-                                else
-                               {
-                                   echo "Sorry, there was an error uploading your file.";
-                               }
- 
-                               header('Location: index.php?fileName=' . basename($_FILES["fileToUpload"]["name"]));
- 
-                           }
-                           // If file aready exists or is of incorrect format
-                           else
-                            {
-                                         echo "Sorry, there was an error uploading your file.";
-                            }
- 
-              
-    }
-
+class uploadForm extends page
+{
+public function get()
+{
+$f = '<form action="index.php?page=uploadForm" method="POST" enctype="multipart/form-data">';
+$f .= '<input type="file" name="fileToUpload" id="fileToUpload">';
+$f .= '<input type="submit" value="Upload" name="submit">';
+$f .= '</form>';
+$this->html .= $f;
+}
+public function post()
+{
+$target_dir = "uploads/";
+$target_file = $target_dir . $_FILES["fileToUpload"]["name"];
+$filename = $_FILES["fileToUpload"]["name"];
+if (file_exists($target_file))
+{
+unlink($target_file);
+}
+if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
+{
+header("Location: index.php?page=table&filename=$filename");
+}
+}
+}
+class table extends page
+{
+public function get()
+{
+$csv = $_GET['filename'];
+chdir('uploads');
+$fil = fopen($csv,"r");
+tags::Format();
+$ran = 1;
+while (($data=fgetcsv($fil))!== FALSE)
+{
+foreach($data as $val)
+{
+if ($ran == 1)
+{
+tags::top($val);
+}
+else
+{
+tags::content($val);
+}
+}
+$ran++;
+tags::Row();
+}
+fclose($fil);
+}
 }
 ?>
