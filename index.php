@@ -78,7 +78,7 @@ echo '</tr>';
 }
 static public function top($msg1)
 {
-echo '<th style="font-size: small">'.$msg1.'</th>';
+echo '<th style="font-size: large">'.$msg1.'</th>';
 }
 static public function content($msg1)
 {
