@@ -41,6 +41,9 @@ $this->html .= '<link rel="stylesheet" href="styles.css">';
 $this->html .= '<body>';
 $this->html .= '<center> ';
 }
+
+
+
 public function __destruct()
 {
 $this->html .= '</body></html></center > ';
@@ -55,11 +58,13 @@ public function post()
 print_r($_POST);
 }
 }
+
+
 class tags
 {
 static public function headingOne($text)
 {
-return '<h1>' . $text . '</h1>';
+return '<h4>' . $text . '</h4>';
 }
 static public function Format()
 {
@@ -71,7 +76,7 @@ echo '</tr>';
 }
 static public function top($text)
 {
-echo '<th style="font-size: small">'.$text.'</th>';
+echo '<th style="font-size: 5">'.$text.'</th>';
 }
 static public function content($text)
 {
@@ -97,6 +102,8 @@ $f .= '<input type="submit" value="Upload" name="submit">';
 $f .= '</form>';
 $this->html .= $f;
 }
+
+
 public function post()
 {
 $target_dir = "uploads/";
@@ -112,6 +119,8 @@ header("Location: index.php?page=table&filename=$filename");
 }
 }
 }
+
+
 class table extends page
 {
 public function get()
