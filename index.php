@@ -31,6 +31,8 @@ $page->post();
 }
 }
 }
+
+
 abstract class page
 {
 protected $html;
@@ -62,9 +64,9 @@ print_r($_POST);
 
 class tags
 {
-static public function headingOne($text)
+static public function headingOne($msg1)
 {
-return '<h4>' . $text . '</h4>';
+return '<h1>' . $msg1 . '</h1>';
 }
 static public function Format()
 {
@@ -74,13 +76,13 @@ static public function Row()
 {
 echo '</tr>';
 }
-static public function top($text)
+static public function top($msg1)
 {
-echo '<th style="font-size: 5">'.$text.'</th>';
+echo '<th style="font-size: small">'.$msg1.'</th>';
 }
-static public function content($text)
+static public function content($msg1)
 {
-echo '<td>'.$text.'</td>';
+echo '<td>'.$msg1.'</td>';
 }
 }
 
