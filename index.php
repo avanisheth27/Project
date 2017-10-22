@@ -2,7 +2,7 @@
 <?php
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
-echo "<h1><b><center >  Project WSD </h1> ></b></center>  ";
+echo "<h1><b><center > Project WSD </h1> </b></center>  ";
 
 
 class assignment
