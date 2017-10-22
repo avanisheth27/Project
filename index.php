@@ -72,7 +72,7 @@ return '<h1>' . $msg1 . '</h1>';
 }
 static public function Format()
 {
-echo "<table cellpadding='6px' border='3px' style='border-collapse:separate'>";
+echo "<table cellpadding='6px' border='3px' style='border-collapse:collapse'>";
 }
 static public function Row()
 {
