@@ -103,7 +103,7 @@ public function get()
 {
 $f = '<form action="index.php?page=uploadForm" method="POST" enctype="multipart/form-data">';
 $f .= '<input type="file" name="fileToUpload" id="fileToUpload">';
-$f .= '<input type="submit" value="Upload" name="submit">';
+$f .= '<input type="submit" value="Upload" name="Upload">';
 $f .= '</form>';
 $this->html .= $f;
 }
