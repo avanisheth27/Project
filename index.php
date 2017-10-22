@@ -3,14 +3,16 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 echo "<h1><b><center >  Project-1 </h1 ></b></center>  ";
+
+
 class assignment
 {
-public static function autoload($class)
+public static function autoload($class) //goes directly to the class name mentioned in the bracket
 {
 include $class . '.php';
 }
 }
-spl_autoload_register(array('assignment', 'autoload'));
+spl_autoload_register(array('assignment', 'autoload')); 
 $object = new main();
 class main
 {
@@ -61,7 +63,7 @@ print_r($_POST);
 }
 }
 
-
+//creates the table format
 class tags
 {
 static public function headingOne($msg1)
@@ -94,6 +96,7 @@ return print($input);
 }
 }
 
+//Creating the Html form to upload the csv file
 class uploadForm extends page
 {
 public function get()
@@ -106,6 +109,7 @@ $this->html .= $f;
 }
 
 
+//have to create uploads folder in the current working directory
 public function post()
 {
 $target_dir = "uploads/";
